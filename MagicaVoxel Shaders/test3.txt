@@ -1,0 +1,21 @@
+//xs test3 2
+
+float map(vec3 v)
+{
+	float t = iArgs[0];
+	
+	vec3 center = iVolumeSize * 0.5;
+	
+	vec2 g = (v + 0.5 - center).xy;
+	
+	float aa =  v.z * iArgs[2];
+	
+	g *= mat2(cos(aa), cos(6*aa), sin(14*aa)/3, cos(18 * aa));
+	
+	g = mod(g, iArgs[1]) - iArgs[2] * 0.5;
+	
+	float noise = fract(6e3 * g.x * g.y);
+
+	return noise * 1;
+
+}

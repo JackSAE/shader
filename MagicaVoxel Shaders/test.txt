@@ -1,0 +1,22 @@
+//xs test 6000 60 0.6
+
+float map(vec3 v)
+{
+	vec3 center = iVolumeSize * 0.5;
+	
+	vec2 g = (v + 0.5 - center).xy;
+	
+	float a = v.z * iArgs[2];
+	g *= mat2(cos(a), -sin(a), sin(a), cos(a));
+	
+	g = mod(g, iArgs[1]) - iArgs[2] * 0.5;
+	
+	float z = iArgs[0] / dot(g,g);
+	
+	float noise = fract(6e3 * g.x * g.y);
+	
+	float color_count = noise * iArgs[1];
+	
+	return color_count * noise * step(abs(v.z - z), 5.);
+	
+}

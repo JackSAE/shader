@@ -1,0 +1,15 @@
+//xs simpleflood [water height] [colour] (optional)[different colour when near another cube]
+
+float map(vec3 v)
+{
+	//the index of a voxel cube in magicavoxel -> for instance 99 is a dark purple if using palette 0
+	float i = voxel(v);
+	
+	//Checks if there is no cube in this spot
+	if(i == 0){
+		if(v.z < iArgs[0]){
+			return iArgs[1];
+		}
+	}
+	return i;
+}

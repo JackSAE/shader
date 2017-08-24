@@ -1,0 +1,50 @@
+//xs test2 3 
+
+//xs test2 60 0.06
+
+float opTwist( vec3 p )
+{
+    float c = cos(20.0*p.y);
+    float s = sin(20.0*p.y);
+    mat2  m = mat2(c,-s,s,c);
+    vec3  q = vec3(m*p.xz,p.y);
+    return vec3(m*p.xz,p.y);
+}
+
+float map(vec3 v)
+{
+	vec3 center = iVolumeSize * 0.5;
+
+	float t = length( ( v + 0.5 - center ).xy );
+	
+	float c = cos(iArgs[1]*v.y);
+	float s = sin(iArgs[1]*v.y);
+	mat2  m = mat2(c,-s,s,c);
+	vec3  q = vec3(m*v.xz,v.y);
+	
+	vec2 g = (v + 0.5 - center).xy;
+	
+	float a = v.z * iArgs[1];
+	g *= mat2(cos(a), -sin(a*a), sin(a), cos(a));
+	
+	
+	float noise = fract(6e3 * g.x * q.y);
+	
+	float color_count = q + v + center;
+	
+	if( length(v - center)-iArgs[0] > 0.5)
+		return 0.0;
+	else
+		return color_count;
+		
+		
+	//return 6.0;
+	//return color_count * noise;
+	
+}
+
+	//return opU( res, vec2( 0.5*length( opTwist(v-vec3(-2.0,0.25, 2.0)),vec2(0.20,0.05)), 46.7 ) );
+	
+	//return q;
+		
+	//return center + v;

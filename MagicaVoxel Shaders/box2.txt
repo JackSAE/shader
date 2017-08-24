@@ -1,0 +1,18 @@
+//xs box2 [size] [colour]
+
+float map(vec3 v)
+{
+
+	vec3 center = iVolumeSize * 0.5;
+	
+	vec3 d = abs(v-center) - iArgs[0];
+	
+	if(min(max(d.x,max(d.y,d.z)),0.0) + length(max(d,0.0)) > 1)
+	{
+		return 0.0;
+	}
+	else
+	{
+		return iArgs[1];
+	}
+}

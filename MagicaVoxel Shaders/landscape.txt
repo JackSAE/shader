@@ -1,0 +1,45 @@
+//xs -n  5 landscape <island amount> <island colour> <island height> <water height>
+
+float rand(vec2 co) {
+	return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+float randz(vec3 co) {
+	return rand(vec2(rand(co.xy), co.z));
+}
+
+float map(vec3 v) {
+
+	float index = voxel(v);
+	
+	float g = iArgs[0];
+	float c = iArgs[1];
+	vec3 center = iVolumeSize * 0.5;
+	bool aBool;
+	vec3 cool = vec3(1<<2,1,1);
+	int i = 0;
+	
+	//Creates the ground layer
+	if(iIter == 0){
+	
+		vec3 aa = vec3(randz(cool),randz(center),0);
+		
+		if(v.z < 1 && length(v - aa)-iArgs[2] > 0.5){
+			return c;
+		}
+		else{
+			return 0;
+		}
+	}
+
+	return index;
+
+	//Add sand
+	
+	//Add Water
+	
+	//Add Grass
+	
+	//Done!
+
+}
